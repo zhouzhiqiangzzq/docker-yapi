@@ -2,7 +2,7 @@
 
 function init-network(){
     sudo docker network rm tools-net
-    sudo docker network create --subnet=172.18.0.0/16 tools-net
+    sudo docker network create --subnet=172.30.0.0/16 tools-net
 }
 
 function mk_d(){
@@ -27,7 +27,7 @@ function start-mongo(){
     -p 27017:27017  \
     -v /data/opt/mongodb/data/configdb:/data/configdb/ \
     -v /data/opt/mongodb/data/db/:/data/db/ \
-    --net tools-net --ip 172.18.0.2 \
+    --net tools-net --ip 172.30.0.2 \
     -d mongo:4 --auth
 }
 
@@ -40,13 +40,13 @@ function init-mongo(){
 
 function start-yapi(){
     echo "start yapi server"
-    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.18.0.3 yapi
+    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi
     echo "end yapi server"
 }
 
 function init-yapi(){
     echo "init yapi db and start yapi server"
-    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.18.0.3 yapi --initdb
+    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi --initdb
     echo "init yapi done"
 }
 

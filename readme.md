@@ -44,7 +44,7 @@ ps. 关于启动失败等问题，由于启动脚本没有考虑失败情况，�
 
 create network
 ```
-docker network create --subnet=172.18.0.0/16 tools-net
+docker network create --subnet=172.30.0.0/16 tools-net
 ```
 
 run mongodb
@@ -54,7 +54,7 @@ docker run  \
 -p 27017:27017  \
 -v /data/opt/mongodb/data/configdb:/data/configdb/ \
 -v /data/opt/mongodb/data/db/:/data/db/ \
---net tools-net --ip 172.18.0.2 \
+--net tools-net --ip 172.30.0.2 \
 -d mongo:4 --auth 
 ```
 
@@ -95,12 +95,12 @@ sh build.sh 1.5.10
 start with db initializtion
 
 ```
- docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.18.0.3 yapi --initdb
+ docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi --initdb
 ```
 
 or just run 
 ```
-docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.18.0.3 yapi 
+docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi 
 ```
 
 
