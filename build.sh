@@ -5,7 +5,7 @@
  echo "我们将从这里下载：  http://registry.npm.taobao.org/yapi-vendor/download/yapi-vendor-\$1.tgz"
 
 
-version=1.5.10
+version=1.9.2
 
 if [ -n "$1" ]; then
  version=$1
