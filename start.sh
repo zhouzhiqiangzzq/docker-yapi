@@ -8,7 +8,7 @@ function init-network(){
 function mk_d(){
  local dir_name=$1
  if [ ! -d $dir_name  ];then
-      sudo mkdir -p $dir_name
+      mkdir -p $dir_name
  else
       echo "dir ${dir_name} exist"
  fi
@@ -17,24 +17,24 @@ function mk_d(){
 
 
 function start-mongo(){
-    mk_d /data/opt/mongodb/data/configdb
-    mk_d /data/opt/mongodb/data/db/
+    mk_d $PWD/mongodb/data/configdb
+    mk_d $PWD/mongodb/data/db/
 
-    sudo docker kill mongod
-    sudo docker rm mongod
+    sudo docker kill yapi_mongod
+    sudo docker rm yapi_mongod
     sudo docker run  \
-    --name mongod \
+    --name yapi_mongod \
     -p 27017:27017  \
-    -v /data/opt/mongodb/data/configdb:/data/configdb/ \
-    -v /data/opt/mongodb/data/db/:/data/db/ \
+    -v $PWD/mongodb/data/configdb:/data/configdb/ \
+    -v $PWD/mongodb/data/db/:/data/db/ \
     --net tools-net --ip 172.30.0.2 \
     -d mongo:4 --auth
 }
 
 function init-mongo(){
     echo "init mongodb account admin and yapi"
-    sudo docker cp  init-mongo.js  mongod:/data
-    sudo docker exec -it mongod mongo admin /data/init-mongo.js
+    sudo docker cp  init-mongo.js  yapi_mongod:/data
+    sudo docker exec -it yapi_mongod mongo admin /data/init-mongo.js
     echo "inti mongodb done"
 }
 
@@ -59,7 +59,7 @@ function remove(){
 }
 
 function stop(){
-    sudo docker kill mongod yapi && sudo docker rm yapi mongod
+    sudo docker kill yapi_mongod yapi && sudo docker rm yapi yapi_mongod
 }
 
 
