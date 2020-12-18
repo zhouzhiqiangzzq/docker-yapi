@@ -39,14 +39,18 @@ function init-mongo(){
 }
 
 function start-yapi(){
+    mk_d $PWD/yapi/
+    
     echo "start yapi server"
-    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi
+    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 -v $PWD/yapi/:/api/ yapi
     echo "end yapi server"
 }
 
 function init-yapi(){
+    mk_d $PWD/yapi/
+
     echo "init yapi db and start yapi server"
-    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 yapi --initdb
+    sudo docker run -d -p 3001:3001 --name yapi --net tools-net --ip 172.30.0.3 -v $PWD/yapi/:/api/ yapi --initdb
     echo "init yapi done"
 }
 
